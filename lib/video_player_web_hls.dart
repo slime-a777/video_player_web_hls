@@ -227,11 +227,12 @@ class _VideoPlayer {
           _hls!.loadSource(uri.toString());
         }));
         _hls!.on('hlsError', allowInterop((_, dynamic data) {
-          eventController.addError(PlatformException(
-            code: _kErrorValueToErrorName[2]!,
-            message: _kDefaultErrorMessage,
-            details: _kErrorValueToErrorDescription[5],
-          ));
+          print('hlsError');
+          // eventController.addError(PlatformException(
+          //   code: _kErrorValueToErrorName[2]!,
+          //   message: _kDefaultErrorMessage,
+          //   details: _kErrorValueToErrorDescription[5],
+          // ));
         }));
         videoElement.onCanPlay.listen((dynamic _) {
           if (!isInitialized) {

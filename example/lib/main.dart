@@ -1,3 +1,6 @@
+import 'dart:async';
+
+import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
@@ -25,7 +28,7 @@ class _VideoAppState extends State<VideoApp> {
           setState(() {});
         });
       _controller.setVolume(0.0);
-
+      _controller.setPlaybackSpeed(10.0);
     }catch(e)
     {
       print(e);
@@ -35,16 +38,31 @@ class _VideoAppState extends State<VideoApp> {
 
   @override
   Widget build(BuildContext context) {
+    Timer.periodic(Duration(milliseconds: 1000), (timer) {
+      print(_controller);
+    });
     return MaterialApp(
       title: 'Video Demo',
       home: Scaffold(
         body: Center(
-          child: _controller.value.isInitialized
-              ? AspectRatio(
-            aspectRatio: _controller.value.aspectRatio,
-            child: VideoPlayer(_controller),
+          child: Column(
+            children: [
+              _controller.value.isInitialized
+                  ? AspectRatio(
+                aspectRatio: _controller.value.aspectRatio,
+                child: VideoPlayer(_controller),
+              )
+                  : Container(),
+              ProgressBar(
+                progress: Duration(seconds: 120),
+                total: Duration(milliseconds: 60 * 60 * 1000),
+                baseBarColor: Colors.black12,
+                progressBarColor: Colors.red,
+                thumbColor: Colors.red,
+                onSeek: (duration) => _controller.seekTo(duration),
+              ),
+            ],
           )
-              : Container(),
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: () {
