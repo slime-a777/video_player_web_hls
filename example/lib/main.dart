@@ -1,6 +1,5 @@
 import 'dart:async';
 
-import 'package:audio_video_progress_bar/audio_video_progress_bar.dart';
 import 'package:video_player/video_player.dart';
 import 'package:flutter/material.dart';
 
@@ -53,14 +52,6 @@ class _VideoAppState extends State<VideoApp> {
                 child: VideoPlayer(_controller),
               )
                   : Container(),
-              ProgressBar(
-                progress: Duration(seconds: 120),
-                total: Duration(milliseconds: 60 * 60 * 1000),
-                baseBarColor: Colors.black12,
-                progressBarColor: Colors.red,
-                thumbColor: Colors.red,
-                onSeek: (duration) => _controller.seekTo(duration),
-              ),
             ],
           )
         ),
